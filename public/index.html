@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MediCore Clinic management system with appointments, dashboards, payments, and patient records.">
+    <title>MediCore Clinic Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="#home" class="brand" aria-label="MediCore home"><span class="brand-mark">M</span><span>MediCore</span></a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="#services">Services</a>
+        <a href="#doctors">Doctors</a>
+        <a href="#appointment">Book</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">Mode</button>
+        <button class="primary-button compact" id="loginOpen">Sign in</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow">Full-stack clinic platform</p>
+          <h1>MediCore Clinic</h1>
+          <p class="hero-text">A deployable doctor clinic website with appointments, role dashboards, patient records, payments, messages, reporting, and a polished patient experience.</p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#appointment">Book Appointment</a>
+            <a class="secondary-button" href="#dashboard">Open Dashboard</a>
+          </div>
+          <div class="quick-stats" id="publicStats" aria-label="Clinic statistics"></div>
+        </div>
+        <div class="hero-panel" aria-label="Today at the clinic">
+          <div class="live-card"><div><span class="status-dot"></span><span>Emergency line active</span></div><strong>+1 555 0199</strong></div>
+          <div class="schedule-card"><p>Working Hours</p><strong>Mon-Sat, 09:00-19:00</strong><span>Sunday emergency care by appointment</span></div>
+          <div class="queue-card"><span>Online Queue</span><strong id="queueCount">08</strong><small>patients currently checked in</small></div>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="section-heading"><p class="eyebrow">Care departments</p><h2>Services with transparent pricing</h2></div>
+        <div class="toolbar">
+          <input id="serviceSearch" type="search" placeholder="Search services or doctors" aria-label="Search services or doctors">
+          <select id="departmentFilter" aria-label="Filter by department"><option value="">All departments</option></select>
+        </div>
+        <div class="card-grid" id="serviceGrid"></div>
+      </section>
+
+      <section class="section muted" id="doctors">
+        <div class="section-heading"><p class="eyebrow">Clinical team</p><h2>Doctors available for booking</h2></div>
+        <div class="doctor-grid" id="doctorGrid"></div>
+      </section>
+
+      <section class="split-section" id="appointment">
+        <div class="section-heading">
+          <p class="eyebrow">Appointments</p>
+          <h2>Book a visit in under a minute</h2>
+          <p>Patients can choose a doctor, date, time, symptoms, and report name. The backend records the appointment and queues email/SMS notifications.</p>
+        </div>
+        <form class="form-panel" id="appointmentForm">
+          <label>Full name<input name="patientName" type="text" placeholder="Patient name" required></label>
+          <label>Doctor<select name="doctorId" id="appointmentDoctor" required></select></label>
+          <label>Date<input name="date" type="date" required></label>
+          <label>Time<input name="time" type="time" required></label>
+          <label class="wide">Symptoms<textarea name="symptoms" rows="4" placeholder="Describe symptoms or reason for visit"></textarea></label>
+          <label>Report name<input name="reportName" type="text" placeholder="blood-test.pdf"></label>
+          <button class="primary-button" type="submit">Submit Appointment</button>
+        </form>
+      </section>
+
+      <section class="section" id="dashboard">
+        <div class="section-heading"><p class="eyebrow">Role dashboards</p><h2>Operations, patient portal, and doctor workspace</h2></div>
+        <div class="dashboard-shell">
+          <aside class="dashboard-sidebar">
+            <div id="sessionCard" class="session-card"></div>
+            <div class="sample-logins">
+              <button data-login="admin">Admin</button>
+              <button data-login="doctor">Doctor</button>
+              <button data-login="receptionist">Reception</button>
+              <button data-login="patient">Patient</button>
+            </div>
+          </aside>
+          <div class="dashboard-main">
+            <div class="stat-row" id="dashboardStats"></div>
+            <div class="dashboard-panels">
+              <section class="panel"><div class="panel-title"><h3>Appointments</h3><button class="secondary-button compact" id="refreshDashboard">Refresh</button></div><div id="appointmentsTable" class="table-wrap"></div></section>
+              <section class="panel"><div class="panel-title"><h3>Analytics</h3></div><div id="analyticsBars" class="bars"></div></section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section muted" id="insights">
+        <div class="section-heading"><p class="eyebrow">Health content</p><h2>News, FAQ, and patient guidance</h2></div>
+        <div class="content-grid">
+          <div class="panel"><h3>Latest News</h3><div id="blogList"></div></div>
+          <div class="panel"><h3>FAQ</h3><div id="faqList"></div></div>
+        </div>
+      </section>
+
+      <section class="contact-band" id="contact">
+        <div><p class="eyebrow">Contact</p><h2>Visit the clinic or reach us anytime</h2></div>
+        <div class="contact-grid"><span>42 Wellness Avenue, Medical District</span><span>hello@medicore.example</span><span>+1 555 0144</span><span>Emergency: +1 555 0199</span></div>
+      </section>
+    </main>
+
+    <div class="modal" id="loginModal" aria-hidden="true">
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+        <button class="icon-button close-button" id="loginClose" aria-label="Close">x</button>
+        <h2 id="loginTitle">Sign in</h2>
+        <form id="loginForm" class="stack-form">
+          <label>Email<input name="email" type="email" value="admin@clinic.test" required></label>
+          <label>Password<input name="password" type="password" value="Admin@12345" required></label>
+          <button class="primary-button" type="submit">Sign in</button>
+        </form>
+        <p class="hint">Sample passwords: Admin@12345, Doctor@12345, Reception@12345, Patient@12345</p>
+      </div>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
